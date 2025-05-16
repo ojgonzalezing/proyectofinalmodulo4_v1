@@ -25,4 +25,10 @@ public class CityDAO {
         Query<Long> query = sessionFactory.getCurrentSession().createQuery("SELECT count(c) FROM City c", Long.class);
         return Math.toIntExact(query.getSingleResult());
     }
+
+    public City getById(Integer id) {
+        Query<City> query = sessionFactory.getCurrentSession().createQuery("select c from City c join fetch c.country where c.id = :ID", City.class);
+        query.setParameter("ID", id);
+        return query.getSingleResult();
+    }
 }
